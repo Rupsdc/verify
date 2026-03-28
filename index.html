@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>:)</title>
+  <style>
+    body {
+      background: #000080;
+      margin: 0;
+      padding: 8px;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    #wall {
+      display: flex;
+      flex-wrap: wrap;
+      line-height: 1;
+    }
+
+    .em {
+      font-size: 1.4rem;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+    }
+
+    .secret {
+      cursor: pointer;
+      filter: grayscale(1) brightness(1.6);
+    }
+
+    /* old windows dialog box */
+    #dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      width: 260px;
+      font-family: "Courier New", Courier, monospace;
+      z-index: 99;
+    }
+
+    #dialog.open { display: block; }
+
+    #titlebar {
+      background: #000080;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #close-btn {
+      background: #c0c0c0;
+      border-top: 1px solid #fff;
+      border-left: 1px solid #fff;
+      border-right: 1px solid #000;
+      border-bottom: 1px solid #000;
+      font-size: 0.7rem;
+      font-family: "Courier New", Courier, monospace;
+      width: 16px;
+      height: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    #dialog-body {
+      padding: 20px 24px 16px;
+      text-align: center;
+    }
+
+    #dialog-body p {
+      font-size: 0.72rem;
+      color: #000;
+      margin-bottom: 14px;
+    }
+
+    #code-word {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #000080;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    #ok-btn {
+      background: #c0c0c0;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #000;
+      border-bottom: 2px solid #000;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      padding: 3px 24px;
+      cursor: pointer;
+    }
+    #ok-btn:active {
+      border-top: 2px solid #000;
+      border-left: 2px solid #000;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div id="wall"></div>
+
+<div id="dialog">
+  <div id="titlebar">
+    <span>message.exe</span>
+    <div id="close-btn">x</div>
+  </div>
+  <div id="dialog-body">
+    <p>discord code:</p>
+    <span id="code-word">pompom</span>
+    <button id="ok-btn">OK</button>
+  </div>
+</div>
+
+<script>
+  const MAIN   = '😊';
+  const SECRET = '😐';
+  const TOTAL  = 500;
+
+  const wall   = document.getElementById('wall');
+  const dialog = document.getElementById('dialog');
+  const secretIdx = Math.floor(Math.random() * TOTAL);
+
+  for (let i = 0; i < TOTAL; i++) {
+    const s = document.createElement('span');
+    s.className = 'em';
+    if (i === secretIdx) {
+      s.textContent = SECRET;
+      s.classList.add('secret');
+      s.onclick = () => dialog.classList.add('open');
+    } else {
+      s.textContent = MAIN;
+    }
+    wall.appendChild(s);
+  }
+
+  document.getElementById('ok-btn').onclick    = () => dialog.classList.remove('open');
+  document.getElementById('close-btn').onclick = () => dialog.classList.remove('open');
+</script>
+</body>
+</html>
