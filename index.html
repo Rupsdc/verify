@@ -140,17 +140,17 @@
 
   const wall   = document.getElementById('wall');
   const dialog = document.getElementById('dialog');
-  const secretIdx = Math.floor(Math.random() * TOTAL);
+  const secretIdx = Math.floor(Math.random() * NUMBEROF);
 
-  for (let i = 0; i < TOTAL; i++) {
+  for (let i = 0; i < NUMBEROF; i++) {
     const s = document.createElement('span');
     s.className = 'em';
     if (i === secretIdx) {
-      s.textContent = SECRET;
+      s.textContent = SUBDOMINANT;
       s.classList.add('secret');
       s.onclick = () => dialog.classList.add('open');
     } else {
-      s.textContent = MAIN;
+      s.textContent = DOMINANT;
     }
     wall.appendChild(s);
   }
